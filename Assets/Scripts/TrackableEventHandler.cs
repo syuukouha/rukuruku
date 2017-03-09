@@ -18,6 +18,7 @@ using Vuforia;
 
         private TrackableBehaviour mTrackableBehaviour;
         public string VideoFileName;
+        public bool Is360Video;
 
         #endregion // PRIVATE_MEMBER_VARIABLES
 
@@ -88,7 +89,10 @@ using Vuforia;
             //    component.enabled = true;
             //}
             GameManager.Instance.VideoFileName = this.VideoFileName;
-            SceneManager.LoadSceneAsync(2);
+            if (Is360Video)
+                SceneManager.LoadSceneAsync(2);
+            else
+                SceneManager.LoadSceneAsync(3);
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
         }
