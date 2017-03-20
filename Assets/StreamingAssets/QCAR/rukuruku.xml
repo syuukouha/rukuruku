@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
-    <ImageTarget name="yaki" size="960.000000 577.534241" />
-    <ImageTarget name="ariharasennsei" size="960.000000 490.099670" />
-    <ImageTarget name="16144151_10154964180099413_1091723442_n" size="960.000000 960.000000" />
-    <ImageTarget name="15991699_10154941155869413_110749249_o" size="960.000000 939.610596" />
+    <ImageTarget name="koujyo3" size="960.000000 537.599976" />
+    <ImageTarget name="koujyo2" size="960.000000 537.599976" />
+    <ImageTarget name="koujyo1" size="960.000000 590.400024" />
+    <ImageTarget name="MiawMiaw3" size="960.000000 1396.363647" />
+    <ImageTarget name="MiawMiaw2" size="960.000000 1846.153809" />
+    <ImageTarget name="MiawMiaw1" size="960.000000 1542.168701" />
+    <ImageTarget name="jinnzo3" size="960.000000 1471.264404" />
+    <ImageTarget name="jinnzo2" size="960.000000 1471.264404" />
+    <ImageTarget name="jinnzo1" size="960.000000 1476.923096" />
+    <ImageTarget name="rukurukulogo" size="960.000000 939.610596" />
+    <ImageTarget name="wakeupgirle" size="960.000000 960.000000" />
+    <ImageTarget name="doropo3" size="960.000000 1560.975586" />
+    <ImageTarget name="doropo2" size="960.000000 1542.168701" />
+    <ImageTarget name="doropo1" size="960.000000 1554.655884" />
+    <ImageTarget name="nekocoffee" size="960.000000 1179.679688" />
   </Tracking>
 </QCARConfig>
