@@ -199,6 +199,7 @@ extern "C" void VideoPlayerPluginDestroyInstance(int iID)
         if(_Player[iID]->player)
         {
             [_Player[iID]->player unloadPlayer];
+            [_Player[iID]->player cleanCache];
             //[_Player[iID]->player dealloc];
             _Player[iID]->player  = NULL;
             

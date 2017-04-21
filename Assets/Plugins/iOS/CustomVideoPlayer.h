@@ -25,7 +25,7 @@
 - (BOOL)loadVideo:(NSURL*)url;
 - (BOOL)readyToPlay;
 - (void)unloadPlayer;
-
+- (void)cleanCache;
 - (BOOL)playToView:(CustomVideoPlayerView*)view;
 - (BOOL)playToTexture;
 - (BOOL)playToTextureloop;

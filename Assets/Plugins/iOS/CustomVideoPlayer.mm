@@ -52,6 +52,7 @@ static void* _ObservePlayerItemContext = (void*)0x2;
     CMSampleBufferRef           _cmSampleBuffer;
     CMSampleBufferRef           _cmSampleBuffer2;
     CMVideoSampling             _videoSampling;
+    CMVideoSampling             _videoSamplingDummy;
     
     unsigned int _videoTexture;
 
@@ -108,6 +109,15 @@ static void* _ObservePlayerItemContext = (void*)0x2;
     return self;
 }
 
+
+- (void)cleanCache
+{
+    if(_videoSamplingDummy.cvTextureCache)
+    {
+        CFRelease(_videoSamplingDummy.cvTextureCache);
+        _videoSamplingDummy.cvTextureCache = 0;
+    }
+}
 - (void)cleanupCVTextureCache
 {
     if(_cmSampleBuffer)
@@ -121,7 +131,32 @@ static void* _ObservePlayerItemContext = (void*)0x2;
         CFRelease(_cmSampleBuffer2);
         _cmSampleBuffer2 = 0;
     }
-    CMVideoSampling_Uninitialize(&_videoSampling);
+    
+    if(_videoSampling.cvImageBuffer)
+    {
+        CFRelease(_videoSampling.cvImageBuffer);
+        _videoSampling.cvImageBuffer = 0;
+    }
+    if(_videoSampling.cvTextureCacheTexture)
+    {
+        CFRelease(_videoSampling.cvTextureCacheTexture);
+        _videoSampling.cvTextureCacheTexture = 0;
+    }
+   
+    
+    
+    if(_videoSampling.cvTextureCache !=0)
+    {
+        if(_videoSamplingDummy.cvTextureCache)
+        {
+            CFRelease(_videoSamplingDummy.cvTextureCache);
+            _videoSamplingDummy.cvTextureCache = 0;
+        }
+        _videoSamplingDummy.cvTextureCache = _videoSampling.cvTextureCache;
+        _videoSampling.cvTextureCache = 0;
+    }
+    
+    //CMVideoSampling_Uninitialize(&_videoSampling);
 }
 
 - (void)cleanupAssetReader
@@ -277,9 +312,11 @@ static void* _ObservePlayerItemContext = (void*)0x2;
 		return curTex;
 
         
-        
-        if(_AudioRouteWasChanged && _player.rate == 0.0f)
-            _player.rate = 1.0f;
+        if(_AudioRouteWasChanged )
+        {
+            _AudioRouteWasChanged = false;
+            [_player setRate: 1.0f]; // _player.rate = 1.0f;
+        }
         
         _curTime = time;
         
@@ -395,7 +432,7 @@ static void* _ObservePlayerItemContext = (void*)0x2;
         if(!_reader)
             return 0;
         
-        
+     
         
 
         intptr_t curTex = CMVideoSampling_LastSampledTexture(&_videoSampling);
@@ -407,8 +444,13 @@ static void* _ObservePlayerItemContext = (void*)0x2;
         
         
         // if we have changed audio route and due to current category apple decided to pause playback - resume automatically
-        if(_AudioRouteWasChanged && _player.rate == 0.0f)
-            _player.rate = 1.0f;
+        if(_AudioRouteWasChanged )
+        {
+            _AudioRouteWasChanged = false;
+            [_player setRate: 1.0f]; // _player.rate = 1.0f;
+        }
+        
+
 
         
         _curTime = time;
@@ -644,13 +686,6 @@ static bool _AudioRouteWasChanged = false;
         
         
         //NSArray *videoTracks = [asset tracksWithMediaType:AVMediaTypeVideo];
-        
-        if( [_playerItem tracks] == NULL)
-            return NO;
-        
-        if( [[_playerItem tracks] count] <= 0)
-            return NO;
-        
         AVAssetTrack *videoTrack = [[[_playerItem tracks] objectAtIndex:0] assetTrack];;
         _videoSize = videoTrack.naturalSize;
         printf("\nprepareReader %d %d", (GLsizei)_videoSize.width, (GLsizei)_videoSize.height);
