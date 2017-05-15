@@ -64,8 +64,8 @@ public class MouseLook : MonoBehaviour {
         	mouse_on=false;
     else if(Application.platform == RuntimePlatform.IPhonePlayer)
     		mouse_on=false;
-		// Make the rigid body not change rotation
-		if (GetComponent<Rigidbody>())
+        // Make the rigid body not change rotation
+        if (GetComponent<Rigidbody>())
             GetComponent<Rigidbody>().freezeRotation = true;
 	}
 }

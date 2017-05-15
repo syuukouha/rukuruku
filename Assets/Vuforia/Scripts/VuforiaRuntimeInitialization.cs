@@ -22,7 +22,7 @@ namespace Vuforia
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void InitPlatform()
         {
-            VuforiaUnity.SetStandardInitializationParameters();
+            VuforiaUnity.SetAssetInitializationParameters();
             VuforiaRuntime.Instance.InitPlatform(CreateUnityPlayer());
         }
 

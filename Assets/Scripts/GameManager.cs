@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,9 @@ public class GameManager : MonoBehaviour
     {
         get { return _instance; }
     }
-
+    public int VideoType;
     public string VideoFileName;
+
     void Awake()
     {
         _instance = this;
@@ -21,9 +23,10 @@ public class GameManager : MonoBehaviour
 	{
 	    DontDestroyOnLoad(this.gameObject);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+}
+[Serializable]
+public class MetaData
+{
+    public int Type;
+    public string URL;
 }

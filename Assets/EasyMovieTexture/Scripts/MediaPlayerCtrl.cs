@@ -303,8 +303,8 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 
 
-	#if UNITY_ANDROID
-	if (Application.dataPath.Contains(".obb")) {
+#if UNITY_ANDROID
+        if (Application.dataPath.Contains(".obb")) {
 
 	Call_SetSplitOBB(true,Application.dataPath);
 	}
