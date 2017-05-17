@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     }
     public int VideoType;
     public string VideoFileName;
+    public string TargetName;
+
 
     void Awake()
     {
@@ -29,4 +31,5 @@ public class MetaData
 {
     public int Type;
     public string URL;
+    public string TargetName;
 }

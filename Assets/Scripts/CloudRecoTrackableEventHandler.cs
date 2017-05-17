@@ -25,6 +25,7 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
 
     #region PRIVATE_MEMBERS
     private TrackableBehaviour mTrackableBehaviour;
+    private GameObject prefab;
     #endregion // PRIVATE_MEMBERS
 
 
@@ -72,20 +73,7 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
     #region PRIVATE_METHODS
     private void OnTrackingFound()
     {
-        //Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
-        //Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
-        //// Enable rendering:
-        //foreach (Renderer component in rendererComponents)
-        //{
-        //    component.enabled = true;
-        //}
-
-        //// Enable colliders:
-        //foreach (Collider component in colliderComponents)
-        //{
-        //    component.enabled = true;
-        //}
 
         // Stop finder since we have now a result, finder will be restarted again when we lose track of the result
         ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
@@ -100,9 +88,12 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
             if (GameManager.Instance.VideoType == 0)
             {
                 SceneManager.LoadSceneAsync(3);
-            }else if(GameManager.Instance.VideoType == 1)
+            } else if (GameManager.Instance.VideoType == 1)
             {
                 SceneManager.LoadSceneAsync(2);
+            } else if (GameManager.Instance.VideoType == 2)
+            {
+                prefab = Instantiate(Resources.Load(GameManager.Instance.TargetName), this.transform) as GameObject;
             }
         }
 
@@ -111,21 +102,22 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
 
     private void OnTrackingLost()
     {
-        Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
-        Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
+        //Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
+        //Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
-        // Disable rendering:
-        foreach (Renderer component in rendererComponents)
-        {
-            component.enabled = false;
-        }
+        //// Disable rendering:
+        //foreach (Renderer component in rendererComponents)
+        //{
+        //    component.enabled = false;
+        //}
 
-        // Disable colliders:
-        foreach (Collider component in colliderComponents)
-        {
-            component.enabled = false;
-        }
-		
+        //// Disable colliders:
+        //foreach (Collider component in colliderComponents)
+        //{
+        //    component.enabled = false;
+        //}
+        if (prefab != null)
+            Destroy(prefab);
         // Start finder again if we lost the current trackable
         ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
         if (objectTracker != null)

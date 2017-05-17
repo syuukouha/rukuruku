@@ -173,6 +173,9 @@ public class CloudRecoEventHandler : MonoBehaviour, ICloudRecoEventHandler
         MetaData newMetaData = JsonUtility.FromJson<MetaData>(metadata);
         GameManager.Instance.VideoType = newMetaData.Type;
         GameManager.Instance.VideoFileName = newMetaData.URL;
+        GameManager.Instance.TargetName = newMetaData.TargetName;
+
+
         // First clear all trackables
         mObjectTracker.TargetFinder.ClearTrackables(false);
 
