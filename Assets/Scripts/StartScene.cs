@@ -20,7 +20,14 @@ public class StartScene : MonoBehaviour
 	    _image.fillAmount += Time.deltaTime;
 	    if (_image.fillAmount >= 1.0f)
 	    {
-	        SceneManager.LoadSceneAsync(1);
-	    }
+            if (PlayerPrefs.HasKey("Guide"))
+            {
+                SceneManager.LoadScene(2);
+            }
+            else
+            {
+                SceneManager.LoadScene(1);
+            }
+        }
 	}
 }
