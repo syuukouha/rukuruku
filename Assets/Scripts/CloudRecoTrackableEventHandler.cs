@@ -87,10 +87,10 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
 
             if (GameManager.Instance.VideoType == 0)
             {
-                SceneManager.LoadSceneAsync(3);
+                SceneManager.LoadScene(4);
             } else if (GameManager.Instance.VideoType == 1)
             {
-                SceneManager.LoadSceneAsync(2);
+                SceneManager.LoadScene(3);
             } else if (GameManager.Instance.VideoType == 2)
             {
                 prefab = Instantiate(Resources.Load(GameManager.Instance.TargetName), this.transform) as GameObject;
