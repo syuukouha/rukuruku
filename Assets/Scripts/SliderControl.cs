@@ -25,21 +25,25 @@ public class SliderControl : MonoBehaviour
     public void OnPointerUp()
     {
         // 判断当前位于哪个区间，设置自动滑动至的位置
-        if (m_Scrollbar.value <= 0.125f)
+        if (m_Scrollbar.value <= 0.1f)
         {
             mTargetValue = 0;
         }
-        else if (m_Scrollbar.value <= 0.375f)
+        else if (m_Scrollbar.value <= 0.3f)
         {
-            mTargetValue = 0.25f;
+            mTargetValue = 0.2f;
         }
-        else if (m_Scrollbar.value <= 0.625f)
+        else if (m_Scrollbar.value <= 0.5f)
         {
-            mTargetValue = 0.5f;
+            mTargetValue = 0.4f;
         }
-        else if (m_Scrollbar.value <= 0.875f)
+        else if (m_Scrollbar.value <= 0.7f)
         {
-            mTargetValue = 0.75f;
+            mTargetValue = 0.6f;
+        }
+        else if (m_Scrollbar.value <= 0.9f)
+        {
+            mTargetValue = 0.8f;
         }
         else
         {
