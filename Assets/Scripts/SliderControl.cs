@@ -11,8 +11,6 @@ public class SliderControl : MonoBehaviour
 
     private bool mNeedMove = false;
 
-    private const float MOVE_SPEED = 1F;
-
     private const float SMOOTH_TIME = 0.2F;
 
     private float mMoveSpeed = 0f;
@@ -52,32 +50,6 @@ public class SliderControl : MonoBehaviour
 
         mNeedMove = true;
         mMoveSpeed = 0;
-    }
-
-    public void OnButtonClick(int value)
-    {
-        switch (value)
-        {
-            case 1:
-                mTargetValue = 0;
-                break;
-            case 2:
-                mTargetValue = 0.25f;
-                break;
-            case 3:
-                mTargetValue = 0.5f;
-                break;
-            case 4:
-                mTargetValue = 0.75f;
-                break;
-            case 5:
-                mTargetValue = 1f;
-                break;
-            default:
-                Debug.LogError("!!!!!");
-                break;
-        }
-        mNeedMove = true;
     }
 
     void Update()
