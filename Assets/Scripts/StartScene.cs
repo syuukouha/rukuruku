@@ -20,13 +20,14 @@ public class StartScene : MonoBehaviour
 	    _image.fillAmount += Time.deltaTime;
 	    if (_image.fillAmount >= 1.0f)
 	    {
+            // 初回のみガイドシーンをロード
             if (PlayerPrefs.HasKey("Guide"))
             {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene("AR");
             }
             else
             {
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene("Guide");
             }
         }
 	}
