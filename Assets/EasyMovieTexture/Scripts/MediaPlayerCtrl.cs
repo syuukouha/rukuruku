@@ -325,9 +325,13 @@ public class MediaPlayerCtrl : MonoBehaviour
 		//if (System.IO.Directory.Exists(Application.persistentDataPath + "/Data") == true)
 		//    System.IO.Directory.Delete(Application.persistentDataPath + "/Data", true);
 	}
+
+    /// <summary>
+    /// ARÉVÅ[ÉìÇ…ñﬂÇÈ
+    /// </summary>
     public void ReturnToARScene()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync("AR");
     }
 
     bool m_bCheckFBO = false;
