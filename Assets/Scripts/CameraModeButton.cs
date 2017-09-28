@@ -8,16 +8,33 @@ using UnityEngine;
 public class CameraModeButton : MonoBehaviour
 {
     /// <summary>
-    /// 単独カメラ使用時に有効なオブジェクト
+    /// 単独カメラ
     /// </summary>
     [SerializeField]
-    private GameObject[] singleCameraObjects;
+    private Camera singleCamera;
 
     /// <summary>
-    /// 分割カメラ使用時に有効なオブジェクト
+    /// 単独カメラ
     /// </summary>
     [SerializeField]
-    private GameObject[] dualCameraObjects;
+    private GameObject singleCameraButton;
+
+    /// <summary>
+    /// 分割カメラ
+    /// </summary>
+    [SerializeField]
+    private Camera[] dualCamera;
+
+    /// <summary>
+    /// 分割カメラ
+    /// </summary>
+    [SerializeField]
+    private GameObject dualCameraButton;
+
+    private void Start()
+    {
+        LoadCameraMode();
+    }
 
     /// <summary>
     /// 保存されたカメラモードを読み込む
@@ -53,29 +70,28 @@ public class CameraModeButton : MonoBehaviour
     /// </summary>
     private void SetCameraModeObjects(int mode)
     {
-        foreach (GameObject o in singleCameraObjects)
+        singleCamera.enabled = false;        
+        foreach (Camera c in dualCamera)
         {
-            o.SetActive(false);
+            c.enabled = false;
         }
-        foreach (GameObject o in dualCameraObjects)
-        {
-            o.SetActive(false);
-        }
+        singleCameraButton.SetActive(false);
+        dualCameraButton.SetActive(false);
+
 
         if (mode == 1)
         {
             // 単独カメラ関連オブジェクトを有効
-            foreach (GameObject o in singleCameraObjects)
-            {
-                o.SetActive(true);
-            }
+            singleCamera.enabled = true;
+            dualCameraButton.SetActive(true);
         }
         else
         {
             // 単独分割カメラ関連オブジェクトを有効
-            foreach (GameObject o in dualCameraObjects)
+            foreach (Camera c in dualCamera)
             {
-                o.SetActive(true);
+                c.enabled = true;
+                singleCameraButton.SetActive(true);
             }
         }
     }

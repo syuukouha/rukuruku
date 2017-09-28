@@ -4090,9 +4090,9 @@ public class MediaPlayerCtrl : MonoBehaviour
     {
         string key = "CameraMode";
         int cameraMode = 1;
-        if (PlayerPrefs.HasKey(key) && PlayerPrefs.GetInt(key) == 2)
+        if (PlayerPrefs.HasKey(key))
         {
-            cameraMode = 2;
+            cameraMode = PlayerPrefs.GetInt(key);
         }
 
         SetCameraModeObjects(cameraMode);
