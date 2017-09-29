@@ -155,4 +155,23 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
         }
     }
     #endregion //PRIVATE_METHODS
+
+	[SerializeField]
+	AudioSource audioSource;
+
+	[SerializeField]
+	AudioClip clip;
+
+	/// <summary>
+	/// トラッキングオブジェクトを認識した時の効果音を再生
+	/// </summary>
+	private void RingTargetFoundGingle()
+	{
+		if( audioSource == null )
+		{
+			audioSource = GetComponent<AudioSource>();
+		}
+
+		audioSource.PlayOneShot(clip);
+	}
 }
