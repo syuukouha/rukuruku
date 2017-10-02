@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 10e25e7d8630a400da8e7a8768d126da
+timeCreated: 1506930831
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Itsbi-Grotesque-Light
+  fontNames:
+  - Itsbi-Grotesque-Light
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

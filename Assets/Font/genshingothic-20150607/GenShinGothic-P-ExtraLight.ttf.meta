@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: b3da2da19ab744a5095bdde31d37acbd
+timeCreated: 1506930834
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Gen Shin Gothic P
+  fontNames:
+  - Gen Shin Gothic P
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 949b70614609f40a895b6e69828a1173, type: 3}
+  - {fileID: 12800000, guid: 280a2b71db9354f2a8190142d6abcbe4, type: 3}
+  - {fileID: 12800000, guid: 8eadd4d1c60b64c33b3728f98ab730aa, type: 3}
+  - {fileID: 12800000, guid: 582d369221d6d4dbd9842696ba54ee9a, type: 3}
+  - {fileID: 12800000, guid: 5db1e13cfb35e4f36a8dd17075840307, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

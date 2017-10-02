@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: fe1d4b644e1ca4deda31603297527dc5
+timeCreated: 1506930836
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Kogo-Monumentalis-New
+  fontNames:
+  - Kogo-Monumentalis-New
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

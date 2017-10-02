@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 7f125fad1780c4f0cbfef60d79f42d2d
+timeCreated: 1506930833
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Itsbi-Silani
+  fontNames:
+  - Itsbi-Silani
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

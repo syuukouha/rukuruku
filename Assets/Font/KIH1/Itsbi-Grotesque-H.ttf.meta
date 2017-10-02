@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 9e05f6d2a171e4e20a427359d984d8da
+timeCreated: 1506930834
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Itsbi-Grotesque-Heavy
+  fontNames:
+  - Itsbi-Grotesque-Heavy
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,15 @@
+﻿
+"KIH1.zip" 內のすべてのファイルは
+「CC0 1.0 Universal」
+のもとにライセンスされます。
+
+These files are licensed under the CC0 1.0 Universal.
+
+ライセンスの原文󠄁と詳細は以下の頁
+http://creativecommons.org/publicdomain/zero/1.0/legalcode
+またはその日本語版
+http://creativecommons.org/publicdomain/zero/1.0/legalcode.ja#languages
+をご參照ください。
+
+＊文字符號は U+E120 から U+E153 迄です。
+＊入力手段として，Google日本語入力用，ローマ字テーブル設定ファイル( Heishin-Table-1.0.txt )を同封してをります。

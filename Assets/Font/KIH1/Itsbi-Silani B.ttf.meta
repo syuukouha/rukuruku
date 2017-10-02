@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: f974cdf4189024a0a8af75497a7ce69e
+timeCreated: 1506930836
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Itsbi-Silani-Bold
+  fontNames:
+  - Itsbi-Silani-Bold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: df393f2005b2c461ea35d59e092f3305, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
