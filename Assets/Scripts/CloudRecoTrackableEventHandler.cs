@@ -98,6 +98,8 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
         }
 
         Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+
+		RingTargetFoundGingle();
     }
 
     private void OnTrackingLost()
@@ -159,9 +161,6 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
 	[SerializeField]
 	AudioSource audioSource;
 
-	[SerializeField]
-	AudioClip clip;
-
 	/// <summary>
 	/// トラッキングオブジェクトを認識した時の効果音を再生
 	/// </summary>
@@ -172,6 +171,6 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
 			audioSource = GetComponent<AudioSource>();
 		}
 
-		audioSource.PlayOneShot(clip);
+		audioSource.Play();
 	}
 }
