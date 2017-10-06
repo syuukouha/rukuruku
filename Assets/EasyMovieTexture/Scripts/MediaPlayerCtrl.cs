@@ -297,7 +297,14 @@ public class MediaPlayerCtrl : MonoBehaviour
 	{
         LoadCameraMode();
 
-        m_strFileName = GameManager.Instance.VideoFileName;
+		if( !GameManager.Instance )
+		{
+			Debug.LogWarning("GameManager is null. string [ " + m_strFileName + " ] is going to be used for videoFileName");
+		}
+		else
+		{
+        	m_strFileName = GameManager.Instance.VideoFileName;
+		}
 
 #if UNITY_ANDROID
         if (Application.dataPath.Contains(".obb")) {
@@ -2293,17 +2300,20 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 		pFormatContext = ffmpeg.avformat_alloc_context();
 
+		Debug.Log(strFileName + "[before]");
+
 		if( strFileName.Contains("://") == false)
 		{
 			strFileName = Application.streamingAssetsPath + "/" + strFileName;
-			Debug.Log(strFileName);
+
 		}
 		else if( strFileName.Contains("file://") == true)
 		{
 			strFileName = strFileName.Replace("file://", "");
 		}
 
- 
+		Debug.Log(strFileName + "[after]");
+
         loader = new Thread ( () => {
 
 
