@@ -5,12 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
-
-    public static GameManager Instance
-    {
-        get { return _instance; }
-    }
+	public static GameManager Instance{ get; private set;}
     public int VideoType;
     public string VideoFileName;
     public string TargetName;
@@ -18,7 +13,13 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        _instance = this;
+		if( Instance )
+		{
+			Debug.Log("GameManager is already exist. desroy second one");
+			DestroyImmediate(this.gameObject);
+			return;
+		}
+        Instance = this;
     }
 	// Use this for initialization
 	void Start ()
