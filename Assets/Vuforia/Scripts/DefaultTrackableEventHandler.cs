@@ -102,6 +102,11 @@ namespace Vuforia
 	            }
 			}
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+
+			if( TrackingSound.instance )
+			{
+				TrackingSound.instance.RingTargetFoundGingle();
+			}
         }
 
 
