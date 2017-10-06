@@ -14,6 +14,9 @@ namespace Vuforia
     public class DefaultTrackableEventHandler : MonoBehaviour,
                                                 ITrackableEventHandler
     {
+		[SerializeField]
+		public bool disableChildObject = false;
+
         #region PRIVATE_MEMBER_VARIABLES
  
         private TrackableBehaviour mTrackableBehaviour;
@@ -68,42 +71,72 @@ namespace Vuforia
 
         private void OnTrackingFound()
         {
-            Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
-            Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
+			if( disableChildObject )
+			{				
+				Transform[] children = new Transform[transform.childCount];
+				for( int i=0 ; i< transform.childCount ; ++i)
+				{
+					children[i] = transform.GetChild(i);
+				}
 
-            // Enable rendering:
-            foreach (Renderer component in rendererComponents)
-            {
-                component.enabled = true;
-            }
+				foreach( Transform obj in children )
+				{
+					obj.gameObject.SetActive( true );
+				}
+			}
+			else
+			{
+	            Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
+	            Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
-            // Enable colliders:
-            foreach (Collider component in colliderComponents)
-            {
-                component.enabled = true;
-            }
+	            // Enable rendering:
+	            foreach (Renderer component in rendererComponents)
+	            {
+	                component.enabled = true;
+	            }
 
+	            // Enable colliders:
+	            foreach (Collider component in colliderComponents)
+	            {
+	                component.enabled = true;
+	            }
+			}
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
         }
 
 
         private void OnTrackingLost()
         {
-            Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
-            Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
+			if( disableChildObject )
+			{				
+				Transform[] children = new Transform[transform.childCount];
+				for( int i=0 ; i< transform.childCount ; ++i)
+				{
+					children[i] = transform.GetChild(i);
+				}
 
-            // Disable rendering:
-            foreach (Renderer component in rendererComponents)
-            {
-                component.enabled = false;
-            }
+				foreach( Transform obj in children )
+				{
+					obj.gameObject.SetActive( false );
+				}
+			}
+			else
+			{
+	            Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
+	            Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
-            // Disable colliders:
-            foreach (Collider component in colliderComponents)
-            {
-                component.enabled = false;
-            }
+	            // Disable rendering:
+	            foreach (Renderer component in rendererComponents)
+	            {
+	                component.enabled = false;
+	            }
 
+	            // Disable colliders:
+	            foreach (Collider component in colliderComponents)
+	            {
+	                component.enabled = false;
+	            }
+			}
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
         }
 
