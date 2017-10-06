@@ -87,10 +87,10 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
 
             if (GameManager.Instance.VideoType == 0)
             {
-                SceneManager.LoadScene(4);
+                SceneManager.LoadScene("FullScreen");
             } else if (GameManager.Instance.VideoType == 1)
             {
-                SceneManager.LoadScene(3);
+                SceneManager.LoadScene("VR");
             } else if (GameManager.Instance.VideoType == 2)
             {
                 prefab = Instantiate(Resources.Load(GameManager.Instance.TargetName), this.transform) as GameObject;
