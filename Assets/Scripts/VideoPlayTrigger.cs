@@ -7,7 +7,7 @@ using UnityEngine.Video;
 public class VideoPlayTrigger : MonoBehaviour 
 {
 	[SerializeField]
-	private VideoClip clip;
+	private string fileName;
 
 	private void OnEnable()
 	{
@@ -19,7 +19,7 @@ public class VideoPlayTrigger : MonoBehaviour
 			return;
 		}
 
-		GameManager.Instance.VideoFileName = clip.name;
+		GameManager.Instance.VideoFileName = fileName;
 		SceneManager.LoadSceneAsync("VR");
 	}
 
