@@ -7,7 +7,7 @@ public class TrackingSound : MonoBehaviour
 	public static TrackingSound instance;
 	private AudioSource audioSource;
 	public float timer{get; private set;}
-	const float Wait = 5;
+	const float Wait = 0.5f;
 
 	// Use this for initialization
 	void Start () 
