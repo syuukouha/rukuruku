@@ -6,11 +6,22 @@ public class TrackingSound : MonoBehaviour
 {
 	public static TrackingSound instance;
 	private AudioSource audioSource;
+	public float timer{get; private set;}
+	const float Wait = 5;
 
 	// Use this for initialization
 	void Start () 
 	{
 		instance = this;
+	}
+
+
+	void Update()
+	{
+		if( timer > 0 )
+		{
+			timer -= Time.deltaTime;
+		}
 	}
 
 	/// <summary>
@@ -24,5 +35,7 @@ public class TrackingSound : MonoBehaviour
 		}
 
 		audioSource.Play();
+
+		timer = Wait;
 	}
 }
