@@ -70,6 +70,8 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 	public Shader m_shaderYUV;
 
+	private bool inQuitProcess = false;
+
 
 	#if UNITY_IPHONE || UNITY_TVOS
 
@@ -209,7 +211,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 	void Awake()
 	{
-
+		inQuitProcess = false;
 
 	#if UNITY_STANDALONE
 		String currentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
@@ -333,6 +335,10 @@ public class MediaPlayerCtrl : MonoBehaviour
     /// </summary>
     public void ReturnToARScene()
     {
+		if( inQuitProcess ) return;
+
+		inQuitProcess = true;
+
         SceneManager.LoadSceneAsync("AR");
     }
 
