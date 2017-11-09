@@ -2306,7 +2306,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 		pFormatContext = ffmpeg.avformat_alloc_context();
 
-		Debug.Log(strFileName + "[before]");
+//		Debug.Log(strFileName + "[before]");
 
 		if( strFileName.Contains("://") == false)
 		{
@@ -2318,7 +2318,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 			strFileName = strFileName.Replace("file://", "");
 		}
 
-		Debug.Log(strFileName + "[after]");
+//		Debug.Log(strFileName + "[after]");
 
         loader = new Thread ( () => {
 
