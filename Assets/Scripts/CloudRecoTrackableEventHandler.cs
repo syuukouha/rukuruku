@@ -88,13 +88,23 @@ public class CloudRecoTrackableEventHandler : MonoBehaviour, ITrackableEventHand
             if (GameManager.Instance.VideoType == 0)
             {
                 SceneManager.LoadScene("FullScreen");
-            } else if (GameManager.Instance.VideoType == 1)
+            }
+			else if (GameManager.Instance.VideoType == 1)
             {
                 SceneManager.LoadScene("VR");
-            } else if (GameManager.Instance.VideoType == 2)
+            }
+			else if (GameManager.Instance.VideoType == 2)
             {
                 prefab = Instantiate(Resources.Load(GameManager.Instance.TargetName), this.transform) as GameObject;
             }
+			else if (GameManager.Instance.VideoType == 3)
+			{
+				SceneManager.LoadScene("FullScreenYoutube");
+			}
+			else if (GameManager.Instance.VideoType == 4)
+			{
+				SceneManager.LoadScene("VRYoutube");
+			}
         }
 
         Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
