@@ -51,8 +51,14 @@ public class YouTubePlayerManager : MonoBehaviour {
 		}
 
 		youtubePayer.videoId = fileName;
+
+		// 再生終了時イベントをセット ARシーンにもどる
+		youtubePayer.unityVideoPlayer.loopPointReached += PlaybackDone;
 	}
 
+	private void PlaybackDone(UnityEngine.Video.VideoPlayer vPlayer){
+		ReturnToARScene ();
+	}
 	/// <summary>
 	/// カメラモード読み込み
 	/// </summary>
