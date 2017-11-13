@@ -21,10 +21,31 @@ http://orange.blender.org/blog/creative-commons-license-2/
 
 
 
-Current version 3.59
+Current version 3.63
 
 
 ------------------------------------------------------------------------------------------
+
+Update ( Ver. 3.63)
+
+1. Fixed the problem that material is generated infinitely in recent update (PC problem)
+
+Update ( Ver. 3.62)
+
+1. Fixed an issue where Android does not work when enabling multithreading rendering option in Unity 2017.
+
+
+Update ( Ver. 3.61)
+
+1. Updating the ffmpeg dll file
+
+Update ( Ver. 3.60)
+
+1. Fixed a problem that the YUV shader was disconnected
+
+2. Fixed an issue where the error message did not work properly for the Android streaming service.
+
+3. Fixed some sound decoding problems on PC.
 
 Update ( Ver. 3.59)
 

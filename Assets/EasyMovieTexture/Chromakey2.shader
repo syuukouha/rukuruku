@@ -1,6 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-//Shader "Unlit/Chromakey2"
+﻿//Shader "Unlit/Chromakey2"
 Shader "Unlit/ChromaKey2" {
 
     Properties {
@@ -50,7 +48,7 @@ Shader "Unlit/ChromaKey2" {
 				{
 					v2f o;
 					//o.vertex = UnityObjectToClipPos(v.vertex);
-					o.vertex = UnityObjectToClipPos(float4(v.vertex.xyz, 1.0));
+					o.vertex = mul(UNITY_MATRIX_MVP, float4(v.vertex.xyz, 1.0));
 					o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 					UNITY_TRANSFER_FOG(o, o.vertex);
 					return o;

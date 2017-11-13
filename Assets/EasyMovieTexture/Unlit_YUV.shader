@@ -1,6 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Unlit/Unlit_YUV"
+﻿Shader "Unlit/Unlit_YUV"
 {
 	Properties
 	{
@@ -50,7 +48,7 @@ Shader "Unlit/Unlit_YUV"
 			{
 				v2f o;
 				//o.vertex = UnityObjectToClipPos(v.vertex);
-				o.vertex = UnityObjectToClipPos(float4(v.vertex.xyz, 1.0));
+				o.vertex = mul(UNITY_MATRIX_MVP, float4(v.vertex.xyz, 1.0));
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				UNITY_TRANSFER_FOG(o,o.vertex);
 				return o;
@@ -60,14 +58,15 @@ Shader "Unlit/Unlit_YUV"
 			fixed4 frag (v2f i) : SV_Target
 			{
 
-				float y = tex2D(_Y, i.uv).a;
-				float u = tex2D(_U, i.uv).a * 0.872 - 0.436;		
-				float v = tex2D(_V, i.uv).a * 1.230 - 0.615;		
+				float y = (tex2D(_Y, i.uv).a  - 0.0625)  *  1.1643;
+				float u = tex2D(_U, i.uv).a -0.5;		
+				float v = tex2D(_V, i.uv).a -0.5;		
 	
-				float r = clamp(y + 1.13983 * v, 0.0, 1.0);
-				float g = clamp(y - 0.39465 * u - 0.58060 * v, 0.0, 1.0);
-				float b = clamp(y + 2.03211 * u, 0.0, 1.0);
-				
+				float r = clamp(y + 1.5958 * v, 0.0, 1.0);
+				float g = clamp(y - 0.39173 * u - 0.81290 * v, 0.0, 1.0);
+				float b = clamp(y + 2.017 * u, 0.0, 1.0);
+
+	
 				fixed4 col = fixed4(r, g, b, 1.0);
 
 				return col;

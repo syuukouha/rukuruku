@@ -71,9 +71,35 @@ static void* _ObservePlayerItemContext = (void*)0x2;
     BOOL            _error;
     
     BOOL _evertoon_was_unloaded;
+    
+    int _audioTrackId;
+    int _audioTrackInfo;
 }
 
 @synthesize delegate;
+
+- (int)audioTrack         { return _audioTrackId; }
+- (int) getAudioTrack { return _audioTrackInfo; }
+
+- (void)setAudioTrack:(int)id
+{
+    if(!_playerReady)
+        return;
+    
+    if(_player == NULL)
+        return;
+        
+    AVMediaSelectionGroup * group = [_player.currentItem.asset mediaSelectionGroupForMediaCharacteristic:AVMediaCharacteristicAudible];
+    
+    if(id >= [group.options count])
+        return;
+    
+    AVMediaSelectionOption *option = [group.options objectAtIndex:id];
+    [_player.currentItem selectMediaOption:option inMediaSelectionGroup:group];
+    
+    _audioTrackId = id;
+    [self setAudioVolume:[_player volume]];
+}
 
 
 - (BOOL)readyToPlay         { return _playerReady; }
@@ -222,6 +248,7 @@ static void* _ObservePlayerItemContext = (void*)0x2;
 {
     _evertoon_was_unloaded = false;
     _error = false;
+    _audioTrackId = 0;
     
     AVURLAsset* asset = [AVURLAsset URLAssetWithURL:url options:nil];
     if(!asset) return NO;
@@ -246,6 +273,7 @@ static void* _ObservePlayerItemContext = (void*)0x2;
     // do not do seekTo and setRate here, it seems that http streaming may hang sometimes if you do so. go figure
     _curFrameTimestamp = _lastFrameTimestamp = kCMTimeZero;
     [_player play];
+    [self setAudioVolume:[_player volume]];
 
     return YES;
 }
@@ -444,7 +472,7 @@ static void* _ObservePlayerItemContext = (void*)0x2;
         
         
         // if we have changed audio route and due to current category apple decided to pause playback - resume automatically
-        if(_AudioRouteWasChanged)
+        if(_AudioRouteWasChanged )
         {
             _AudioRouteWasChanged = false;
             [_player setRate: 1.0f]; // _player.rate = 1.0f;
@@ -500,15 +528,17 @@ static void* _ObservePlayerItemContext = (void*)0x2;
         [_player setVolume:volume];
     
 
-    NSArray* audio = [_playerItem.asset tracksWithMediaType:AVMediaTypeAudio];
+    NSArray* arrayTracks = [_playerItem.asset tracksWithMediaType:AVMediaTypeAudio];
     NSMutableArray* params = [NSMutableArray array];
     
-    for(AVAssetTrack* track in audio)
+    for (int i=0; i < [arrayTracks count]; i++)
     {
+        AVAssetTrack* assetTrackAudio = arrayTracks[i];
       
         AVMutableAudioMixInputParameters* inputParams = [AVMutableAudioMixInputParameters audioMixInputParameters];
-        [inputParams setVolume:volume atTime:kCMTimeZero];
-        [inputParams setTrackID:[track trackID]];
+        float trackVolume = (i ==_audioTrackId) ? volume : 0.0f;
+        [inputParams setVolume:trackVolume atTime:kCMTimeZero];
+        [inputParams setTrackID:[assetTrackAudio trackID]];
         [params addObject:inputParams];
     }
 
@@ -516,8 +546,6 @@ static void* _ObservePlayerItemContext = (void*)0x2;
     [audioMix setInputParameters:params];
 
     [_playerItem setAudioMix:audioMix];
-    
-    
 
     return YES;
 }
@@ -603,6 +631,7 @@ static bool _AudioRouteWasChanged = false;
         if(keyStatus == AVKeyValueStatusFailed)
         {
             [self reportError:error category:"prepareAsset"];
+			_error = true;
             return;
         }
     }
@@ -693,26 +722,29 @@ static bool _AudioRouteWasChanged = false;
         
  
         NSArray * arrayTracks = [asset tracksWithMediaType:AVMediaTypeAudio];
-        if (0 < [arrayTracks count]) {
-     
-            AVAssetTrack* assetTrackAudio = arrayTracks[0];
+        NSMutableArray* params = [NSMutableArray array];
+        
+        
+        _audioTrackInfo = [arrayTracks count];
+        for (int i=0; i < [arrayTracks count]; i++)
+        {
+            AVAssetTrack* assetTrackAudio = arrayTracks[i];
             
-            AVMutableAudioMixInputParameters* audioInputParams = [AVMutableAudioMixInputParameters audioMixInputParameters];
-            [audioInputParams setVolume:1.0f atTime:kCMTimeZero];
-            [audioInputParams setTrackID:[assetTrackAudio trackID]];
-            
-            NSArray* audioParams = @[audioInputParams];
-            AVMutableAudioMix* audioMix = [AVMutableAudioMix audioMix];
-            [audioMix setInputParameters:audioParams];
-            
-            AVPlayerItem* item = [_player currentItem];
-            [item setAudioMix:audioMix];
-           
+            AVMutableAudioMixInputParameters* inputParams = [AVMutableAudioMixInputParameters audioMixInputParameters];
+            float trackVolume = i ==_audioTrackId ? 1.0f : 0.0f;
+            [inputParams setVolume:trackVolume atTime:kCMTimeZero];
+            [inputParams setTrackID:[assetTrackAudio trackID]];
+            [params addObject:inputParams];
+         
         }
         
-         [[_player currentItem] addOutput:videoOutput];
+        AVMutableAudioMix* audioMix = [AVMutableAudioMix audioMix];
+        [audioMix setInputParameters:params];
         
+        AVPlayerItem* item = [_player currentItem];
+        [item setAudioMix:audioMix];
         
+        [item addOutput:videoOutput];
     }
     else
     {
@@ -728,6 +760,25 @@ static bool _AudioRouteWasChanged = false;
         NSDictionary* options = @{ (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA) };
         _videoOut = [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTrack outputSettings:options];
         _videoOut.alwaysCopiesSampleData = NO;
+        
+        
+        NSArray * arrayTracks = [_playerItem.asset  tracksWithMediaType:AVMediaTypeAudio];
+        NSMutableArray* params = [NSMutableArray array];
+        
+        
+        _audioTrackInfo = [arrayTracks count];
+        for (int i=0; i < [arrayTracks count]; i++)
+        {
+            AVAssetTrack* assetTrackAudio = arrayTracks[i];
+            
+            AVMutableAudioMixInputParameters* inputParams = [AVMutableAudioMixInputParameters audioMixInputParameters];
+            float trackVolume = i ==_audioTrackId ? 1.0f : 0.0f;
+            [inputParams setVolume:trackVolume atTime:kCMTimeZero];
+            [inputParams setTrackID:[assetTrackAudio trackID]];
+            [params addObject:inputParams];
+          
+        }
+        
         
         if(![_reader canAddOutput:_videoOut])
         {

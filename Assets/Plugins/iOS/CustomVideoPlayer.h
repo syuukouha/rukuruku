@@ -44,6 +44,10 @@
 
 - (BOOL)setAudioVolume:(float)volume;
 
+- (void)setAudioTrack:(int)trackId;
+- (int )getAudioTrack;
+- (int)audioTrack;
+
 - (CMTime)duration;
 - (float)durationSeconds;
 - (float)curTimeSeconds;

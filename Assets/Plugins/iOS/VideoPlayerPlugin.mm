@@ -37,7 +37,7 @@ extern "C" __attribute__((visibility ("default"))) NSString *const kUnityViewDid
     [player loadVideo:videoURL];
 }
 - (void)playVideo{
-
+    
     if ([player readyToPlay])
         [self play];
 }
@@ -46,7 +46,7 @@ extern "C" __attribute__((visibility ("default"))) NSString *const kUnityViewDid
 
 - (void)onPlayerReady {
     
-
+    
     m_bLoading = false;
     
     if(m_bUnload == true)
@@ -60,28 +60,28 @@ extern "C" __attribute__((visibility ("default"))) NSString *const kUnityViewDid
         [self play];
         m_bLoopPlay =false;
     }
-   
+    
     
     
 }
 
 - (void)resizeView {
-   /* //FIXME Orientationが変更された時にうまくリサイズされていない view frame更新
-
-    CGFloat scale = UnityGetGLView().contentScaleFactor;
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    CGRect bounds;
-
-    if (orientation) {
-        bounds.size.width = UnityGetGLView().bounds.size.width - (margin.origin.x + margin.size.width) / scale;
-        bounds.size.height = UnityGetGLView().bounds.size.height - (margin.origin.y + margin.size.height) / scale;
-    } else {
-        bounds.size.width = UnityGetGLView().bounds.size.height - (margin.origin.x + margin.size.width) / scale;
-        bounds.size.height = UnityGetGLView().bounds.size.width - (margin.origin.y + margin.size.height) / scale;
-    }
-
-    view.bounds = bounds;
-    view.center = CGPointMake(view.bounds.size.width / 2 + margin.origin.x / scale, view.bounds.size.height / 2 + margin.origin.y / scale);*/
+    /* //FIXME Orientationが変更された時にうまくリサイズされていない view frame更新
+     
+     CGFloat scale = UnityGetGLView().contentScaleFactor;
+     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+     CGRect bounds;
+     
+     if (orientation) {
+     bounds.size.width = UnityGetGLView().bounds.size.width - (margin.origin.x + margin.size.width) / scale;
+     bounds.size.height = UnityGetGLView().bounds.size.height - (margin.origin.y + margin.size.height) / scale;
+     } else {
+     bounds.size.width = UnityGetGLView().bounds.size.height - (margin.origin.x + margin.size.width) / scale;
+     bounds.size.height = UnityGetGLView().bounds.size.width - (margin.origin.y + margin.size.height) / scale;
+     }
+     
+     view.bounds = bounds;
+     view.center = CGPointMake(view.bounds.size.width / 2 + margin.origin.x / scale, view.bounds.size.height / 2 + margin.origin.y / scale);*/
 }
 
 - (void)play {
@@ -100,13 +100,13 @@ extern "C" __attribute__((visibility ("default"))) NSString *const kUnityViewDid
 
 - (void)unload {
     
-  
+    
     if( m_bLoading == true)
     {
         m_bUnload = true;
         return;
     }
-
+    
     [player unloadPlayer];
 }
 
@@ -156,12 +156,12 @@ static CustomVideoPlayerInterface *_GetPlayer(int iID) {
         _Player[iID]->player.delegate = _Player[iID].self;
         _PlayerUsed[iID] = true;
     }
-
+    
     if (!_Player[iID]->player) {
         _Player[iID]->player = [[CustomVideoPlayer alloc] init];
         _Player[iID]->player.delegate = _Player[iID]->player.self;
     }
-
+    
     return _Player[iID];
 }
 
@@ -219,7 +219,7 @@ extern "C" void VideoPlayerPluginDestroyInstance(int iID)
 
 
 extern "C" void VideoPlayerPluginLoadVideo(int iID,const char *videoURL) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return;
     
@@ -233,7 +233,7 @@ extern "C" void VideoPlayerPluginLoadVideo(int iID,const char *videoURL) {
     _GetPlayer(iID)->m_bLoading = true;
     
     _GetPlayer(iID)->m_videoURL = _GetUrl(videoURL);
-
+    
     [_GetPlayer(iID) loadVideo:_GetPlayer(iID)->m_videoURL];
     
 }
@@ -265,7 +265,7 @@ extern "C" void VideoPlayerPluginSetVolume(int iID,float fVolume) {
 }
 
 extern "C" void VideoPlayerPluginPauseVideo(int iID) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return;
     
@@ -273,7 +273,7 @@ extern "C" void VideoPlayerPluginPauseVideo(int iID) {
 }
 
 extern "C" void VideoPlayerPluginResumeVideo(int iID) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return;
     
@@ -281,18 +281,18 @@ extern "C" void VideoPlayerPluginResumeVideo(int iID) {
 }
 
 extern "C" void VideoPlayerPluginRewindVideo(int iID) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return;
     
 }
 extern "C" bool VideoPlayerPluginCanOutputToTexture(const char *videoURL) {
-
+    
     return [CustomVideoPlayer CanPlayToTexture:_GetUrl(videoURL)];
 }
 
 extern "C" bool VideoPlayerPluginPlayerReady(int iID) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return false;
     
@@ -300,15 +300,42 @@ extern "C" bool VideoPlayerPluginPlayerReady(int iID) {
 }
 
 extern "C" float VideoPlayerPluginDurationSeconds(int iID) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return 0.0f;
     
     return [_GetPlayer(iID)->player durationSeconds];
 }
 
-extern "C" void VideoPlayerPluginExtents(int iID,int *w, int *h) {
+extern "C" int VideoPlayerPluginGetAudioTrack(int iID) {
+    
+    if(iID < 0 || iID >= PLAYER_MAX)
+        return 0;
+    
+    return [_GetPlayer(iID)->player getAudioTrack];
+}
 
+extern "C" void VideoPlayerPluginSetAudioTrack(int iID, int trackID) {
+    
+    if(iID < 0 || iID >= PLAYER_MAX)
+        return;
+    
+    return [_GetPlayer(iID)->player setAudioTrack:trackID];
+}
+
+extern "C" int VideoPlayerPluginGetAudioTrackCount(int iID) {
+    
+    if(iID < 0 || iID >= PLAYER_MAX)
+        return 0;
+    
+    
+    
+    return [_GetPlayer(iID)->player getAudioTrack];
+}
+
+
+extern "C" void VideoPlayerPluginExtents(int iID,int *w, int *h) {
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return;
     
@@ -335,7 +362,7 @@ extern "C" void VideoPlayerPluginSetTexture(int iID,int iTextureID)
 }
 
 extern "C" intptr_t VideoPlayerPluginCurFrameTexture(int iID) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return 0;
     
@@ -343,7 +370,7 @@ extern "C" intptr_t VideoPlayerPluginCurFrameTexture(int iID) {
 }
 
 extern "C" void VideoPlayerPluginSeekToVideo(int iID,float time) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return;
     
@@ -359,7 +386,7 @@ extern "C" float VideoPlayerPluginCurTimeSeconds(int iID) {
 }
 
 extern "C" bool VideoPlayerPluginIsPlaying(int iID) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return false;
     
@@ -368,7 +395,7 @@ extern "C" bool VideoPlayerPluginIsPlaying(int iID) {
 }
 
 extern "C" void VideoPlayerPluginStopVideo(int iID) {
-
+    
     if(iID < 0 || iID >= PLAYER_MAX)
         return;
     
@@ -386,7 +413,7 @@ extern "C" bool VideoPlayerPluginFinish(int iID) {
     }
     
     return false;
-
+    
 }
 
 extern "C" bool VideoPlayerPluginError(int iID) {
@@ -403,14 +430,14 @@ extern "C" bool VideoPlayerPluginError(int iID) {
 }
 
 extern "C" void VideoPlayerPluginSetSpeed(int iID,float fSpeed) {
-        if(iID < 0 || iID >= PLAYER_MAX)
-            return;
+    if(iID < 0 || iID >= PLAYER_MAX)
+        return;
+    
+    if (_GetPlayer(iID)->player) {
+        [_GetPlayer(iID)->player setSpeed:fSpeed ];
+        //return _GetPlayer(iID)->player get;
         
-        if (_GetPlayer(iID)->player) {
-            [_GetPlayer(iID)->player setSpeed:fSpeed ];
-            //return _GetPlayer(iID)->player get;
-            
-        }
+    }
     
     
     
