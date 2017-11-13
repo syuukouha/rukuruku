@@ -70,7 +70,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 	public Shader m_shaderYUV;
 
-	private bool inQuitProcess = false;
+	//private bool inQuitProcess = false;
 
 
 	#if UNITY_IPHONE || UNITY_TVOS
@@ -211,7 +211,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 	void Awake()
 	{
-		inQuitProcess = false;
+	//	inQuitProcess = false;
 
 	#if UNITY_STANDALONE
 		String currentPath = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
@@ -328,6 +328,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 		//    System.IO.Directory.Delete(Application.persistentDataPath + "/Data", true);
 	}
 
+	/*
     /// <summary>
     /// ARÉVÅ[ÉìÇ…ñﬂÇÈ
     /// </summary>
@@ -339,6 +340,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 
         SceneManager.LoadSceneAsync("AR");
     }
+	*/
 
     bool m_bCheckFBO = false;
 
@@ -367,12 +369,12 @@ public class MediaPlayerCtrl : MonoBehaviour
 		{
 			return;
 		}
-
+		/*
         if (GetCurrentState() == MEDIAPLAYER_STATE.END)
         {
             ReturnToARScene();
         }
-
+		*/
         if (checkNewActions)
 		{			
 			checkNewActions = false;

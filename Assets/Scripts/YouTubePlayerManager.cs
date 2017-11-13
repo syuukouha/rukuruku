@@ -60,5 +60,4 @@ public class YouTubePlayerManager : MonoBehaviour {
 
 		UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("AR");
 	}
-
 }
