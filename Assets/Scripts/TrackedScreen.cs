@@ -33,16 +33,28 @@ public class TrackedScreen : MonoBehaviour
 		var fileName = GameManager.Instance.VideoFileName;
 
 		// YouTubeの動画かどうか判別
-		var useSimplePlaybackFlag =  IsYouTubeVideo( fileName ) || alwaysUseVideoPlayer;
+		var isYouTubeVideo = IsYouTubeVideo( fileName );
 
-		simplePlayback.gameObject.SetActive( useSimplePlaybackFlag );
-		mediaPlayerCtrl.gameObject.SetActive( !useSimplePlaybackFlag );
+		// VideoPlayerコンポーネントを使うか？
+		var useUnityVideoPlayerFlag = isYouTubeVideo || alwaysUseVideoPlayer;
 
-		if( useSimplePlaybackFlag ){
-			simplePlayback.Start();
-			simplePlayback.PlayYoutubeVideo( GameManager.Instance.VideoFileName );
+		simplePlayback.gameObject.SetActive( useUnityVideoPlayerFlag );
+		mediaPlayerCtrl.gameObject.SetActive( !useUnityVideoPlayerFlag );
+
+		if( useUnityVideoPlayerFlag )
+		{
+			if( isYouTubeVideo ){
+				simplePlayback.Start();
+				simplePlayback.PlayYoutubeVideo( GameManager.Instance.VideoFileName );
+			}
+			else
+			{
+				var videoPlayer = simplePlayback.unityVideoPlayer;
+				videoPlayer.url = GameManager.Instance.VideoFileName;
+
+				simplePlayback.enabled = false;
+			}
 		}
-
 		// ここで、
 		// Keep Alpha = true
 		// とか、
