@@ -37,12 +37,6 @@ public class SimplePlayback : MonoBehaviour {
 
     }
 
-//	void Update()/
-//	{
-//		if( resolver == null ) return;
-//		Debug.Log(System.Reflection.MethodBase.GetCurrentMethod() + " " + (resolver.videoInfos != null).ToString() );
-//	}
-
 	void FinishLoadingUrls( List<VideoInfo> videoInfos )
     {
 		Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
