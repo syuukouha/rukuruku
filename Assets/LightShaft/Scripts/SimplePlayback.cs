@@ -27,6 +27,7 @@ public class SimplePlayback : MonoBehaviour {
 
 	public void PlayYoutubeVideo(string _videoId)
 	{
+		Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
         if(youtubeLogo != null)
         {
             youtubeLogo.youtubeurl = "https://www.youtube.com/watch?v=" + _videoId;
@@ -36,9 +37,17 @@ public class SimplePlayback : MonoBehaviour {
 
     }
 
-    void FinishLoadingUrls()
+//	void Update()/
+//	{
+//		if( resolver == null ) return;
+//		Debug.Log(System.Reflection.MethodBase.GetCurrentMethod() + " " + (resolver.videoInfos != null).ToString() );
+//	}
+
+	void FinishLoadingUrls( List<VideoInfo> videoInfos )
     {
-        List<VideoInfo> videoInfos = resolver.videoInfos;
+		Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+
+//        List<VideoInfo> videoInfos = resolver.videoInfos;
         foreach (VideoInfo info in videoInfos)
         {
             if (info.VideoType == VideoType.Mp4 && info.Resolution == (360))

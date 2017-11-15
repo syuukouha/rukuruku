@@ -126,8 +126,21 @@ namespace YoutubeLight
         }
 
         public List<VideoInfo> videoInfos;
-        public IEnumerator GetDownloadUrls(Action callback, string videoUrl, bool decryptSignature = true)
+		public IEnumerator GetDownloadUrls(Action<List<VideoInfo>> callback, string videoUrl, bool decryptSignature = true)
+		{
+			yield return StartCoroutine( ExecGetDownloadUrls( videoUrl, decryptSignature ) );
+
+			callback.Invoke( videoInfos );
+
+		}
+		public IEnumerator GetDownloadUrls(Action callback, string videoUrl, bool decryptSignature = true)
         {
+			yield return StartCoroutine( ExecGetDownloadUrls( videoUrl, decryptSignature ) );
+			callback.Invoke();
+
+		}
+		public IEnumerator ExecGetDownloadUrls(string videoUrl, bool decryptSignature = true)
+			{
             if (videoUrl == null)
                 throw new ArgumentNullException("videoUrl");
             ValidateCertificate vl = gameObject.AddComponent<ValidateCertificate>();
@@ -165,10 +178,8 @@ namespace YoutubeLight
                     //DecryptDownloadUrl(info);
                 }
             }
-            videoInfos = infos;
-            callback.Invoke();
+			videoInfos = infos;
         }
-
 
         public static bool TryNormalizeYoutubeUrl(string url, out string normalizedUrl)
         {
